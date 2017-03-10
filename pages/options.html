@@ -67,6 +67,24 @@ b: http://b.com/?q=%s description
               <textarea id="searchEngines"></textarea>
           </td>
         </tr>
+        <tr>
+          <td class="caption">Custom language<br/>key maps</td>
+          <td verticalAlign="top">
+              <div class="help">
+                <div class="example">
+                  Write keyboard layout mapping for your locale here.
+                  For example, Russian йцукен2qwerty langmap will be the following:
+                  <pre>
+йцукенгшщзхъфывапролджэячсмитьбю
+qwertyuiop[]asdfghjkl;'zxcvbnm,.
+ЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ
+QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM&lt;&gt;</pre>
+                  So the 'й' key acts like the 'q' key etc
+                </div>
+              </div>
+              <textarea id="languageMaps"></textarea>
+          </td>
+        </tr>
         <tbody id='advancedOptions'>
           <tr>
             <td colspan="2"><header>Advanced Options</header></td>

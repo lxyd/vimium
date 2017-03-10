@@ -197,6 +197,7 @@ Options =
   smoothScroll: CheckBoxOption
   grabBackFocus: CheckBoxOption
   searchEngines: TextOption
+  languageMaps: TextOption
   searchUrl: NonEmptyTextOption
   userDefinedLinkHintCss: TextOption
 

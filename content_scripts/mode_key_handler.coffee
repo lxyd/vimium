@@ -35,6 +35,8 @@ class KeyHandlerMode extends Mode
 
     @mapKeyRegistry = {}
     Utils.monitorChromeStorage "mapKeyRegistry", (value) => @mapKeyRegistry = value
+    @languageMapRegistry = {}
+    Utils.monitorChromeStorage "languageMapRegistry", (value) => @languageMapRegistry = value
 
     if options.exitOnEscape
       # If we're part way through a command's key sequence, then a first Escape should reset the key state,
@@ -51,6 +53,7 @@ class KeyHandlerMode extends Mode
   onKeydown: (event) ->
     keyChar = KeyboardUtils.getKeyCharString event
     keyChar = @mapKeyRegistry[keyChar] ? keyChar
+    keyChar = @languageMapRegistry[keyChar] ? keyChar
     isEscape = KeyboardUtils.isEscape event
     if isEscape and (@countPrefix != 0 or @keyState.length != 1)
       @keydownEvents[event.keyCode] = true
@@ -78,6 +81,7 @@ class KeyHandlerMode extends Mode
   onKeypress: (event) ->
     keyChar = KeyboardUtils.getKeyCharString event
     keyChar = @mapKeyRegistry[keyChar] ? keyChar
+    keyChar = @languageMapRegistry[keyChar] ? keyChar
     if @isMappedKey keyChar
       @handleKeyChar keyChar
     else if @isCountKey keyChar

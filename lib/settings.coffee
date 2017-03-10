@@ -169,6 +169,7 @@ Settings =
       # az: http://www.amazon.com/s/?field-keywords=%s Amazon
       # qw: https://www.qwant.com/?q=%s Qwant
       """
+    languageMaps: ""
     newTabUrl: "chrome://newtab"
     grabBackFocus: false
     regexFindMode: false

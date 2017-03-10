@@ -2,13 +2,16 @@ Commands =
   availableCommands: {}
   keyToCommandRegistry: null
   mapKeyRegistry: null
+  languageMapRegistry: null
 
   init: ->
     for own command, [description, options] of commandDescriptions
       @availableCommands[command] = extend (options ? {}), description: description
 
     Settings.postUpdateHooks["keyMappings"] = @loadKeyMappings.bind this
+    Settings.postUpdateHooks["languageMaps"] = @loadLanguageMaps.bind this
     @loadKeyMappings Settings.get "keyMappings"
+    @loadLanguageMaps Settings.get "languageMaps"
     @prepareHelpPageData()
 
   loadKeyMappings: (customKeyMappings) ->
@@ -50,6 +53,20 @@ Commands =
     # mode.
     Settings.set "passNextKeyKeys",
       (key for own key of @keyToCommandRegistry when @keyToCommandRegistry[key].command == "passNextKey" and 1 < key.length)
+
+  loadLanguageMaps: (customLanguageMaps) ->
+    lines = customLanguageMaps
+      .split "\n"
+      .filter (l) -> l and not l.startsWith "#"
+
+    @languageMapRegistry = {}
+    for i in [0..lines.length - 1] by 2
+      from = lines[i] || ""
+      to = lines[i+1] || ""
+      for i in [0..Math.min(from.length,to.length)-1]
+        @languageMapRegistry[from[i]] = to[i]
+
+    chrome.storage.local.set languageMapRegistry: @languageMapRegistry
 
   # Lower-case the appropriate portions of named keys.
   #
